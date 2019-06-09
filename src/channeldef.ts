@@ -844,6 +844,7 @@ export function channelCompatibility(
     case 'key':
     case 'tooltip':
     case 'href':
+    case 'url':
       return COMPATIBLE;
 
     case 'longitude':
