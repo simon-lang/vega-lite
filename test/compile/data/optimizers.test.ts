@@ -1,10 +1,11 @@
 import {DataFlowNode} from '../../../src/compile/data/dataflow';
 import {ImputeNode} from '../../../src/compile/data/impute';
 import {optimizeDataflow} from '../../../src/compile/data/optimize';
-import {MergeIdenticalNodes} from '../../../src/compile/data/optimizers';
-import {nodeFieldIntersection} from '../../../src/compile/data/optimizers';
+import {MergeIdenticalNodes, MergeTimeUnits, nodeFieldIntersection} from '../../../src/compile/data/optimizers';
 import {PivotTransformNode} from '../../../src/compile/data/pivot';
+import {TimeUnitComponent, TimeUnitNode} from '../../../src/compile/data/timeunit';
 import {Transform} from '../../../src/transform';
+import {hash} from '../../../src/util';
 import {parseLayerModel} from '../../util';
 import {FilterNode} from './../../../src/compile/data/filter';
 
@@ -117,6 +118,46 @@ describe('compile/data/optimizer', () => {
       expect(nodeFieldIntersection(filterNode, filterNode)).toBe(false);
       expect(nodeFieldIntersection(pivotNode, filterNode)).toBe(true);
       expect(nodeFieldIntersection(filterNode, pivotNode)).toBe(false);
+    });
+  });
+
+  describe('MergeTimeUnits', () => {
+    it('should merge adjacent time unit nodes', () => {
+      const parent = new DataFlowNode(null, 'root');
+
+      const c1: TimeUnitComponent = {
+        as: 'a_yr',
+        timeUnit: 'year',
+        field: 'a'
+      };
+      const c2: TimeUnitComponent = {
+        as: 'b_yr',
+        timeUnit: 'year',
+        field: 'b'
+      };
+      const c3: TimeUnitComponent = {
+        as: 'c_yr',
+        timeUnit: 'year',
+        field: 'c'
+      };
+
+      new TimeUnitNode(parent, {[hash(c1)]: c1, [hash(c2)]: c2});
+      new TimeUnitNode(parent, {[hash(c1)]: c1, [hash(c3)]: c3});
+
+      const optimizer = new MergeTimeUnits();
+      optimizer.run(parent.children[0]);
+
+      expect(parent.children).toHaveLength(1);
+
+      const mergedNode: TimeUnitNode = parent.children[0] as TimeUnitNode;
+      expect(mergedNode.producedFields()).toEqual(new Set(['a_yr', 'b_yr', 'c_yr']));
+      expect(mergedNode.dependentFields()).toEqual(new Set(['a', 'b', 'c']));
+
+      expect(mergedNode.assemble()).toEqual([
+        {as: 'a_yr', expr: 'datetime(year(datum["a"]), 0, 1, 0, 0, 0, 0)', type: 'formula'},
+        {as: 'c_yr', expr: 'datetime(year(datum["c"]), 0, 1, 0, 0, 0, 0)', type: 'formula'},
+        {as: 'b_yr', expr: 'datetime(year(datum["b"]), 0, 1, 0, 0, 0, 0)', type: 'formula'}
+      ]);
     });
   });
 });

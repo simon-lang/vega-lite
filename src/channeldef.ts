@@ -58,9 +58,15 @@ export type ChannelDefWithCondition<F extends FieldDef<any>, V extends Value> =
  * }
  */
 
-export type ValueDefWithCondition<F extends FieldDef<any>, V extends Value = Value> =
-  | ValueDefWithOptionalCondition<F, V>
-  | ConditionOnlyDef<F>;
+/**
+ * @minProperties 1
+ */
+export type ValueDefWithCondition<F extends FieldDef<any>, V extends Value = Value> = Partial<ValueDef<V>> & {
+  /**
+   * A field definition or one or more value definition(s) with a selection predicate.
+   */
+  condition?: Conditional<F> | Conditional<ValueDef<V>> | Conditional<ValueDef<V>>[];
+};
 
 export type StringValueDefWithCondition<F extends Field, T extends Type = StandardType> = ValueDefWithCondition<
   MarkPropFieldDef<F, T>,
@@ -140,26 +146,6 @@ export type TextFieldDefWithCondition<F extends Field> = FieldDefWithCondition<T
  *   value: ...,
  * }
  */
-
-export interface ValueDefWithOptionalCondition<FD extends FieldDef<any>, V extends Value> extends ValueDef<V> {
-  /**
-   * A field definition or one or more value definition(s) with a selection predicate.
-   */
-  condition?: Conditional<FD> | Conditional<ValueDef<V>> | Conditional<ValueDef<V>>[];
-}
-
-/**
- * A Condition<ValueDef | FieldDef> only definition.
- * {
- *   condition: {field: ...} | {value: ...}
- * }
- */
-export interface ConditionOnlyDef<F extends FieldDef<any>, V extends Value = Value> {
-  /**
-   * A field definition or one or more value definition(s) with a selection predicate.
-   */
-  condition: Conditional<F> | Conditional<ValueDef<V>> | Conditional<ValueDef<V>>[];
-}
 
 /**
  * Reference to a repeated value.
@@ -403,7 +389,7 @@ export function isConditionalDef<F extends Field, V extends Value>(
 
 export function hasConditionalFieldDef<F extends Field, V extends Value>(
   channelDef: ChannelDef<FieldDef<F>, V>
-): channelDef is ValueDef<V> & {condition: Conditional<TypedFieldDef<F>>} {
+): channelDef is Partial<ValueDef<V>> & {condition: Conditional<TypedFieldDef<F>>} {
   return !!channelDef && !!channelDef.condition && !isArray(channelDef.condition) && isFieldDef(channelDef.condition);
 }
 
@@ -910,13 +896,12 @@ export function isNumberFieldDef(fieldDef: TypedFieldDef<any>) {
 }
 
 /**
- * Check if the field def uses a time format or does not use any format but is temporal (this does not cover field defs that are temporal but use a number format).
+ * Check if the field def uses a time format or does not use any format but is temporal
+ * (this does not cover field defs that are temporal but use a number format).
  */
 export function isTimeFormatFieldDef(fieldDef: TypedFieldDef<string>): boolean {
-  const formatType =
-    (isPositionFieldDef(fieldDef) && fieldDef.axis && fieldDef.axis.formatType) ||
-    (isMarkPropFieldDef(fieldDef) && fieldDef.legend && fieldDef.legend.formatType) ||
-    (isTextFieldDef(fieldDef) && fieldDef.formatType);
+  const guide = getGuide(fieldDef);
+  const formatType = (guide && guide.formatType) || (isTextFieldDef(fieldDef) && fieldDef.formatType);
   return formatType === 'time' || (!formatType && isTimeFieldDef(fieldDef));
 }
 
