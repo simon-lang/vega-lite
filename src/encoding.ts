@@ -2,7 +2,16 @@ import {AggregateOp} from 'vega';
 import {isArray} from 'vega-util';
 import {isArgmaxDef, isArgminDef} from './aggregate';
 import {isBinning} from './bin';
-import {Channel, CHANNELS, isChannel, isNonPositionScaleChannel, isSecondaryRangeChannel, supportMark} from './channel';
+import {
+  Channel,
+  CHANNELS,
+  isChannel,
+  isNonPositionScaleChannel,
+  isSecondaryRangeChannel,
+  supportMark,
+  X,
+  Y
+} from './channel';
 import {
   binRequiresRange,
   ChannelDef,
@@ -44,7 +53,7 @@ import {EncodingFacetMapping} from './spec/facet';
 import {getDateTimeComponents} from './timeunit';
 import {AggregatedFieldDef, BinTransform, TimeUnitTransform} from './transform';
 import {TEMPORAL} from './type';
-import {keys, some} from './util';
+import {contains, keys, some} from './util';
 
 export interface Encoding<F extends Field> {
   /**
@@ -315,7 +324,17 @@ export function extractTransformsFromEncoding(oldEncoding: Encoding<Field>, conf
             newFieldDef['type'] = 'quantitative';
           }
         } else if (timeUnit) {
-          timeUnits.push({timeUnit, field, as: newField});
+          if (contains([X, Y], channel) && isTypedFieldDef(newFieldDef)) {
+            timeUnits.push({timeUnit, field, as: newField});
+            const channel2 = channel === 'x' ? 'x2' : 'y2';
+            const {type: _t, bin: _b, ...newFieldDefWithoutType} = newFieldDef;
+            encoding[channel2] = {
+              ...newFieldDefWithoutType,
+              field: newFieldDefWithoutType.field + '_end'
+            };
+          }
+
+          groupby.push(vgField(channelDef, {binSuffix: 'end'}));
 
           // Add formatting to appropriate property based on the type of channel we're processing
           const format = getDateTimeComponents(timeUnit, config.axis.shortTimeLabels).join(' ');
