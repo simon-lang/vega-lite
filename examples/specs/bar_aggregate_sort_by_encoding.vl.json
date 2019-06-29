@@ -9,7 +9,7 @@
       "field": "age",
       "type": "ordinal",
       "scale": {"rangeStep": 17},
-      "sort": {"encoding": "x"}
+      "sort": "-x"
     },
     "x": {
       "aggregate": "sum",
