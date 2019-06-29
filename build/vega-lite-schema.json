@@ -191,7 +191,7 @@
           "description": "The font weight.\nThis can be either a string (e.g `\"bold\"`, `\"normal\"`) or a number (`100`, `200`, `300`, ..., `900` where `\"normal\"` = `400` and `\"bold\"` = `700`)."
         },
         "height": {
-          "description": "Y coordinates of the marks, or height of vertical `\"bar\"` and `\"area\"` without `y2`\n>>>>>>> feat: Add image mark (rebasing #4429)\n/**\nheight of the marks.",
+          "description": "Height of the marks.",
           "type": "number"
         },
         "href": {
@@ -1195,7 +1195,7 @@
           "description": "The font weight.\nThis can be either a string (e.g `\"bold\"`, `\"normal\"`) or a number (`100`, `200`, `300`, ..., `900` where `\"normal\"` = `400` and `\"bold\"` = `700`)."
         },
         "height": {
-          "description": "Y coordinates of the marks, or height of vertical `\"bar\"` and `\"area\"` without `y2`\n>>>>>>> feat: Add image mark (rebasing #4429)\n/**\nheight of the marks.",
+          "description": "Height of the marks.",
           "type": "number"
         },
         "href": {
@@ -2982,7 +2982,7 @@
           "description": "Header configuration, which determines default properties for row [headers](https://vega.github.io/vega-lite/docs/header.html).\n\nFor a full list of header configuration options, please see the [corresponding section of in the header documentation](https://vega.github.io/vega-lite/docs/header.html#config)."
         },
         "image": {
-          "$ref": "#/definitions/MarkConfig",
+          "$ref": "#/definitions/RectConfig",
           "description": "Image-specific Config"
         },
         "invalidValues": {
@@ -7108,7 +7108,7 @@
           "description": "The font weight.\nThis can be either a string (e.g `\"bold\"`, `\"normal\"`) or a number (`100`, `200`, `300`, ..., `900` where `\"normal\"` = `400` and `\"bold\"` = `700`)."
         },
         "height": {
-          "description": "Y coordinates of the marks, or height of vertical `\"bar\"` and `\"area\"` without `y2`\n>>>>>>> feat: Add image mark (rebasing #4429)\n/**\nheight of the marks.",
+          "description": "Height of the marks.",
           "type": "number"
         },
         "href": {
@@ -7610,7 +7610,7 @@
           "description": "The font weight.\nThis can be either a string (e.g `\"bold\"`, `\"normal\"`) or a number (`100`, `200`, `300`, ..., `900` where `\"normal\"` = `400` and `\"bold\"` = `700`)."
         },
         "height": {
-          "description": "Y coordinates of the marks, or height of vertical `\"bar\"` and `\"area\"` without `y2`\n>>>>>>> feat: Add image mark (rebasing #4429)\n/**\nheight of the marks.",
+          "description": "Height of the marks.",
           "type": "number"
         },
         "href": {
@@ -7875,7 +7875,7 @@
           "description": "The font weight.\nThis can be either a string (e.g `\"bold\"`, `\"normal\"`) or a number (`100`, `200`, `300`, ..., `900` where `\"normal\"` = `400` and `\"bold\"` = `700`)."
         },
         "height": {
-          "description": "Y coordinates of the marks, or height of vertical `\"bar\"` and `\"area\"` without `y2`\n>>>>>>> feat: Add image mark (rebasing #4429)\n/**\nheight of the marks.",
+          "description": "Height of the marks.",
           "type": "number"
         },
         "href": {
@@ -8480,7 +8480,7 @@
           "description": "The font weight.\nThis can be either a string (e.g `\"bold\"`, `\"normal\"`) or a number (`100`, `200`, `300`, ..., `900` where `\"normal\"` = `400` and `\"bold\"` = `700`)."
         },
         "height": {
-          "description": "Y coordinates of the marks, or height of vertical `\"bar\"` and `\"area\"` without `y2`\n>>>>>>> feat: Add image mark (rebasing #4429)\n/**\nheight of the marks.",
+          "description": "Height of the marks.",
           "type": "number"
         },
         "href": {
@@ -9307,7 +9307,7 @@
           "description": "The font weight.\nThis can be either a string (e.g `\"bold\"`, `\"normal\"`) or a number (`100`, `200`, `300`, ..., `900` where `\"normal\"` = `400` and `\"bold\"` = `700`)."
         },
         "height": {
-          "description": "Y coordinates of the marks, or height of vertical `\"bar\"` and `\"area\"` without `y2`\n>>>>>>> feat: Add image mark (rebasing #4429)\n/**\nheight of the marks.",
+          "description": "Height of the marks.",
           "type": "number"
         },
         "href": {
@@ -10828,7 +10828,7 @@
           "description": "The font weight.\nThis can be either a string (e.g `\"bold\"`, `\"normal\"`) or a number (`100`, `200`, `300`, ..., `900` where `\"normal\"` = `400` and `\"bold\"` = `700`)."
         },
         "height": {
-          "description": "Y coordinates of the marks, or height of vertical `\"bar\"` and `\"area\"` without `y2`\n>>>>>>> feat: Add image mark (rebasing #4429)\n/**\nheight of the marks.",
+          "description": "Height of the marks.",
           "type": "number"
         },
         "href": {
@@ -11163,7 +11163,7 @@
           "description": "The font weight.\nThis can be either a string (e.g `\"bold\"`, `\"normal\"`) or a number (`100`, `200`, `300`, ..., `900` where `\"normal\"` = `400` and `\"bold\"` = `700`)."
         },
         "height": {
-          "description": "Y coordinates of the marks, or height of vertical `\"bar\"` and `\"area\"` without `y2`\n>>>>>>> feat: Add image mark (rebasing #4429)\n/**\nheight of the marks.",
+          "description": "Height of the marks.",
           "type": "number"
         },
         "href": {
