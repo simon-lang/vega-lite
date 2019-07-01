@@ -67,12 +67,6 @@ For example, the following plot sorts the y-values by the x-values (in descendin
 
 <div class="vl-example" data-name="bar_aggregate_sort_by_encoding"></div>
 
-This is equivalent to using an object with the `encoding` and optional `"order"` property:
-
-{% include table.html props="encoding,order" source="SortByEncoding" %}
-
-For example, `"sort": "-x"` is equivalent to `"sort": {"encoding": "x", "order": "descending"}`.
-
 ### Sort by a Different Field
 
 {:#sort-field}

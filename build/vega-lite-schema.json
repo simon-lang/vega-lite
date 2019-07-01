@@ -10706,9 +10706,6 @@
           "$ref": "#/definitions/EncodingSortField"
         },
         {
-          "$ref": "#/definitions/SortByEncoding"
-        },
-        {
           "type": "null"
         }
       ]
@@ -10774,30 +10771,6 @@
         "-text"
       ],
       "type": "string"
-    },
-    "SortByEncoding": {
-      "additionalProperties": false,
-      "properties": {
-        "encoding": {
-          "$ref": "#/definitions/SortByChannel",
-          "description": "The [encoding channel](https://vega.github.io/vega-lite/docs/encoding.html#channels) to sort by (e.g., `\"x\"`, `\"y\"`)"
-        },
-        "order": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/SortOrder"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "description": "The sort order. One of `\"ascending\"` (default), `\"descending\"`, or `null` (no not sort)."
-        }
-      },
-      "required": [
-        "encoding"
-      ],
-      "type": "object"
     },
     "SortField": {
       "additionalProperties": false,

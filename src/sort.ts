@@ -55,6 +55,9 @@ export interface EncodingSortField<F> {
   order?: SortOrder | null;
 }
 
+/**
+ * @hide
+ */
 export interface SortByEncoding {
   /**
    * The [encoding channel](https://vega.github.io/vega-lite/docs/encoding.html#channels) to sort by (e.g., `"x"`, `"y"`)
